@@ -31,6 +31,7 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isHighContrast, setIsHighContrast] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [notification, setNotification] = useState(null);
 
   // Check backend health on initial mount
   useEffect(() => {
@@ -57,16 +58,38 @@ export function App() {
 
   const handleGeneratePlan = async (formData) => {
     setIsLoading(true);
+    setNotification(null);
     try {
-      const result = await requestEventPlan(formData);
+      // Tactile pacing buffer so user visibly sees the synthesis reaction
+      const [result] = await Promise.all([
+        requestEventPlan(formData),
+        new Promise(resolve => setTimeout(resolve, 450))
+      ]);
+
       setCurrentPlan(result.data);
       setEngineSource(result.source);
+      setNotification({
+        message: `✨ Master Blueprint for "${result.data.event_name}" (${result.data.event_type.toUpperCase()}) successfully synthesized!`,
+        type: 'success'
+      });
+
+      // Smooth scroll directly to the updated blueprint results section
+      setTimeout(() => {
+        const resultsEl = document.getElementById('blueprint-results');
+        if (resultsEl) {
+          resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     } catch (err) {
       console.error("Plan generation error caught by boundary:", err);
       // Failsafe: calculate on client
       const clientFallback = generateClientPlan(formData);
       setCurrentPlan(clientFallback);
       setEngineSource('resilient');
+      setNotification({
+        message: `⚡ High-Speed Resilient Blueprint for "${clientFallback.event_name}" generated!`,
+        type: 'success'
+      });
     } finally {
       setIsLoading(false);
     }
@@ -87,6 +110,23 @@ export function App() {
           onGeneratePlan={handleGeneratePlan}
           isLoading={isLoading}
         />
+
+        {/* Results Anchor & Notification */}
+        <div id="blueprint-results" className="results-anchor">
+          {notification && (
+            <div className="notification-banner success" role="alert" aria-live="assertive">
+              <span>{notification.message}</span>
+              <button 
+                type="button" 
+                onClick={() => setNotification(null)} 
+                className="btn-close-toast"
+                aria-label="Dismiss notification"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Navigation Tabs */}
         <nav className="tabs-nav" aria-label="Event Blueprint Navigation">

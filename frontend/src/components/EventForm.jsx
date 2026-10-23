@@ -79,7 +79,12 @@ export function EventForm({ onGeneratePlan, isLoading }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGeneratePlan(formData);
+    const sanitized = {
+      ...formData,
+      total_budget: parseFloat(formData.total_budget) || 10000,
+      guest_count: parseInt(formData.guest_count, 10) || 50,
+    };
+    onGeneratePlan(sanitized);
   };
 
   return (

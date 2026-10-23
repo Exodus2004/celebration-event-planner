@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function BudgetBreakdown({ budgetSummary, totalBudget, onUpdateAllocations }) {
   const [categories, setCategories] = useState(budgetSummary.categories);
+
+  useEffect(() => {
+    setCategories(budgetSummary.categories);
+  }, [budgetSummary]);
 
   const handleSliderChange = (idx, newPct) => {
     const updated = [...categories];
