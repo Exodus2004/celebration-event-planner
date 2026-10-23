@@ -4,6 +4,8 @@
 **Participant Name:** Kiran Reddy  
 **Contact Email:** flyingskyinthehouse@gmail.com  
 **Project Title:** GenAI Celebration & Event Planner Platform  
+**Live Production URL:** https://frontend-mocha-tau-y5lenn77qx.vercel.app  
+**GitHub Repository:** https://github.com/Exodus2004/celebration-event-planner  
 **Target Score:** 100/100 (Flawless Execution Across All 6 Rubric Parameters)  
 
 ---

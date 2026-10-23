@@ -2,6 +2,9 @@
 > **GenAI-Powered Master Planning Platform for Weddings, Birthdays & Community Events**  
 > *Engineered for Zero-Downtime Resilience, WCAG AAA Accessibility, and Flawless 100/100 Evaluation Compliance.*
 
+**Live Production URL:** [https://frontend-mocha-tau-y5lenn77qx.vercel.app](https://frontend-mocha-tau-y5lenn77qx.vercel.app)  
+**GitHub Repository:** [https://github.com/Exodus2004/celebration-event-planner](https://github.com/Exodus2004/celebration-event-planner)  
+
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111%2B-green.svg)](https://fastapi.tiangolo.com)
 [![Mypy Strict](https://img.shields.io/badge/mypy-strict%20compliant%20(0%20errors)-brightgreen.svg)](https://mypy-lang.org)
