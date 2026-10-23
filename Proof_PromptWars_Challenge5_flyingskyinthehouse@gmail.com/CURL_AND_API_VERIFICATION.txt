@@ -1,0 +1,95 @@
+=== CELEBRATION & EVENT PLANNER API VERIFICATION VIA CURL ===
+
+1. Health Check Endpoint:
+Command:
+curl -i http://localhost:8000/health
+
+Expected Headers & Response:
+HTTP/1.1 200 OK
+content-type: application/json
+x-content-type-options: nosniff
+x-frame-options: DENY
+strict-transport-security: max-age=31536000; includeSubDomains
+referrer-policy: strict-origin-when-cross-origin
+x-ratelimit-limit: 120
+x-ratelimit-remaining: 119
+
+{
+  "status": "healthy",
+  "service": "Celebration & Event Planner API",
+  "resilience_engine": "active"
+}
+
+---
+
+2. Generate Master Event Blueprint Endpoint (POST /api/v1/plan):
+Command:
+curl -X POST http://localhost:8000/api/v1/plan \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event_name": "Sarah & Alex Autumn Nuptials",
+    "event_type": "wedding",
+    "total_budget": 38000.0,
+    "guest_count": 120,
+    "target_date": "2027-10-16",
+    "location": "Napa Valley, CA",
+    "theme_preference": "Rustic Vineyard Elegance",
+    "dietary_preferences": ["Vegetarian", "Gluten-Free"],
+    "special_notes": "Sunset ceremony followed by covered pavilion dinner."
+  }'
+
+Expected JSON Structure:
+{
+  "event_id": "evt-xxxxxxxx",
+  "event_name": "Sarah & Alex Autumn Nuptials",
+  "event_type": "wedding",
+  "guest_count": 120,
+  "location": "Napa Valley, CA",
+  "target_date": "2027-10-16",
+  "engine_used": "resilient-deterministic-v1",
+  "budget_summary": {
+    "total_budget": 38000.0,
+    "per_guest_cost": 316.67,
+    "contingency_reserve": 3800.0,
+    "categories": [ ... ]
+  },
+  "timeline_plan": {
+    "milestones": [ ... ],
+    "run_of_show": [ ... ]
+  },
+  "vendor_checklist": [ ... ],
+  "personalized_ideas": {
+    "theme_title": "Rustic Vineyard Elegance",
+    "color_palette": [ ... ],
+    "menu_concepts": [ ... ],
+    "interactive_activities": [ ... ],
+    "speech_or_toast_prompt": "...",
+    "invitation_copy": "..."
+  },
+  "executive_summary": "..."
+}
+
+---
+
+3. Interactive AI Assistant Chat Endpoint (POST /api/v1/chat):
+Command:
+curl -X POST http://localhost:8000/api/v1/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "What if rain is forecast for our outdoor reception?",
+    "current_budget": 38000.0,
+    "guest_count": 120,
+    "event_type": "wedding"
+  }'
+
+Expected JSON Structure:
+{
+  "reply": "For outdoor weather contingencies, activate a 72-hour weather trigger:\n1. Reserve a clear-span commercial tent with sidewalls 14 days in advance...",
+  "suggested_actions": [
+    "Confirm tent hold deadline with rental supplier",
+    "Purchase 30-50 clear umbrellas",
+    "Establish indoor photo alternative location"
+  ],
+  "relevant_checklist_item": "Staging & Rentals Contingency",
+  "budget_impact": "Approx. 5-8% contingency fund allocation"
+}

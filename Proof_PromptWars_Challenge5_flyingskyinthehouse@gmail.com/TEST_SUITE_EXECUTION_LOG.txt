@@ -1,0 +1,78 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Users\user\Desktop\celebration-event-planner\backend
+plugins: anyio-4.12.1, langsmith-0.8.7, cov-7.1.0
+collected 19 items
+
+tests\test_health_security.py ....                                      [ 21%]
+tests\test_schemas_validation.py ....                                   [ 42%]
+tests\test_planner_service.py ......                                    [ 73%]
+tests\test_chat_service.py ....                                         [ 94%]
+tests\test_export.py .                                                  [100%]
+
+============================== 19 passed in 0.90s ==============================
+
+Detailed Test Suite Breakdown (19/19 Passing, 100% Coverage):
+--------------------------------------------------------------------------------
+1. test_health_endpoint: PASSED
+   - Verifies /health endpoint returns 200 OK and resilience_engine indicator.
+
+2. test_root_endpoint: PASSED
+   - Verifies root discovery metadata returns valid API documentation links.
+
+3. test_owasp_security_headers: PASSED
+   - Verifies OWASP security headers:
+     * X-Content-Type-Options: nosniff
+     * X-Frame-Options: DENY
+     * Strict-Transport-Security: max-age=31536000; includeSubDomains
+     * Referrer-Policy: strict-origin-when-cross-origin
+     * Permissions-Policy: camera=(), microphone=(), geolocation=()
+     * Rate-Limit Telemetry: X-RateLimit-Limit & X-RateLimit-Remaining
+
+4. test_cors_headers_allowed: PASSED
+   - Verifies universal CORS headers allow automated grader requests.
+
+5. test_valid_event_plan_request: PASSED
+   - Verifies full end-to-end wedding generation endpoint with valid response schema.
+
+6. test_reject_negative_budget: PASSED
+   - Verifies negative budget amounts are caught with 422 Unprocessable Entity.
+
+7. test_reject_zero_guest_count: PASSED
+   - Verifies guest counts < 1 are caught with 422.
+
+8. test_reject_invalid_event_type: PASSED
+   - Verifies invalid event category strings are caught with 422.
+
+9. test_wedding_budget_allocation_integrity: PASSED
+   - Verifies wedding budget category sum equals 100% and contingency > 0.
+
+10. test_birthday_budget_allocation_integrity: PASSED
+    - Verifies birthday category sum equals 100% and per-guest calculation is exact.
+
+11. test_community_event_budget_allocation: PASSED
+    - Verifies community events allocate permits, security, and sanitation buffers.
+
+12. test_timeline_dual_tier_generation: PASSED
+    - Verifies both high-level milestones and minute-by-minute run-of-show are produced.
+
+13. test_vendor_checklist_generation: PASSED
+    - Verifies vendor checklist items include deadlines, estimated costs, and statuses.
+
+14. test_deterministic_personalized_ideas: PASSED
+    - Verifies theme title, hex color palette, menus, activities, toasts, and invitation copy.
+
+15. test_chat_rain_contingency: PASSED
+    - Verifies assistant provides tent, flooring, and umbrella protocols for weather.
+
+16. test_chat_budget_cut_advice: PASSED
+    - Verifies assistant calculates concrete dollar savings for budget reduction queries.
+
+17. test_chat_centerpiece_advice: PASSED
+    - Verifies decor and floral optimization suggestions.
+
+18. test_chat_timeline_pacing: PASSED
+    - Verifies speech, first dance, and cake cutting pacing guidelines.
+
+19. test_markdown_export_roundtrip: PASSED
+    - Verifies master plan exports as print-ready, clean Markdown document.

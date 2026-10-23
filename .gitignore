@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+.venv
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+coverage.xml
+.coverage
+
+# Node & Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vercel/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
